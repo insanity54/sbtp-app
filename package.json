@@ -13,26 +13,39 @@
     "gatsby-plugin-sharp": "^2.6.27",
     "gatsby-source-filesystem": "^2.3.24",
     "gatsby-transformer-sharp": "^2.5.13",
+    "grommet": "^2.15.0",
+    "polished": "^3.6.5",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "@babel/core": "^7.11.1",
+    "@storybook/addon-actions": "^6.0.13",
+    "@storybook/addon-essentials": "^6.0.13",
+    "@storybook/addon-links": "^6.0.13",
+    "@storybook/react": "^6.0.13",
+    "babel-loader": "^8.1.0",
+    "prettier": "2.0.5",
+    "react-is": "^16.13.1"
   },
   "keywords": [
     "gatsby"
   ],
   "license": "0BSD",
   "scripts": {
+    "postinstall": "bash -x ./postinstall.sh",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Sakura Blossom Trading Post`,
+    branding: `SBTP.XYZ`,
+    description: `Online trading card shop which specializes in Precious Memories Japanese anime collectible cards`,
+    author: `Chris Grimmett <chris@grimtech.net>`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -13,6 +14,19 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    // I'm using @denisgoryaynov's fork in plugins/gatsby-source-strap because it supports contentTypes with multiple images.
+    // once https://github.com/strapi/gatsby-source-strapi/pull/118/ is merged, I can switch back to official gatsby-source-strapi
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: `http://localhost:1337`,
+        queryLimit: 1000, // Default to 100
+        contentTypes: [`product`, `user`],
+        //If using single types place them in this array.
+        singleTypes: [`prize-pool`],
+        // Possibility to login with a strapi user, when content types are not publically available (optional).
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -21,12 +35,13 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#ffcccc`,
+        theme_color: `#ffcccc`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
