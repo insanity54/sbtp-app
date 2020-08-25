@@ -1,17 +1,16 @@
 import React from "react"
 import Img from 'gatsby-image'
-import { Heading, RadioButtonGroup, Box } from 'grommet'
+import { Heading, Paragraph } from "grommet"
 import Link from '../components/Link'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const RewardsPage = ({ data }) => (
+const PrizePage = ({ data }) => (
   <Layout>
-    <SEO title="Page two" />
-    <Heading level="2">Rewards</Heading>
-    <p>Welcome to page 2</p>
-    <Link to="/">Go back to the homepage</Link>
+    <SEO title="Prizes" />
+    <Heading level="2">Prizes</Heading>
+    <Paragraph>Here is the current prize pool.</Paragraph>
     <ul>
       {data.allStrapiProduct.edges.map(document => (
         <li key={document.node.id}>
@@ -27,8 +26,8 @@ const RewardsPage = ({ data }) => (
 )
 
 
-export const pageQuery = graphql`  
-  query IndexQuery {
+export const prizeQuery = graphql`  
+  query PrizeQuery {
     allStrapiProduct {
       edges {
         node {
@@ -49,4 +48,4 @@ export const pageQuery = graphql`
     }
   }`
 
-export default RewardsPage
+export default PrizePage

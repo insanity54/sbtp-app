@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import { Header as GrommetHeader, Heading, Box } from "grommet"
 import LogoImage from "./logoImage"
-import UserWidget from './UserWidget/UserWidget'
+import Nav from './Nav/Nav'
 import "./font.css"
 
 const Header = ({ siteBranding, data }) => (
@@ -25,7 +25,7 @@ const Header = ({ siteBranding, data }) => (
           </Box>
         </Link>
     </Heading>
-    <UserWidget />
+    <Nav />
   </GrommetHeader>
 )
 

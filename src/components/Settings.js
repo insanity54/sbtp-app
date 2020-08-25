@@ -4,9 +4,8 @@ import { Heading, RadioButtonGroup, Box, Grid } from 'grommet'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const SettingsPage = ({ data }) => (
-  <Layout>
-    <SEO title="Settings" />
+const Settings = ({ data }) => (
+  <>
     <Heading level="2">Settings</Heading>
     <Box>
       <Grid>
@@ -17,9 +16,9 @@ const SettingsPage = ({ data }) => (
         />
       </Grid>
     </Box>
-  </Layout>
+  </>
 )
 
 
 
-export default SettingsPage
+export default Settings

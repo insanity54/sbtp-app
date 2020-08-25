@@ -9,7 +9,7 @@ const Login = () => (
 )
 
 const doLogin = () => {
-  navigate('/login')
+  navigate('/user/login')
 }
 
 export default Login

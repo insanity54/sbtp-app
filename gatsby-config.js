@@ -4,6 +4,7 @@ module.exports = {
     branding: `SBTP.XYZ`,
     description: `Online trading card shop which specializes in Precious Memories Japanese anime collectible cards`,
     author: `Chris Grimmett <chris@grimtech.net>`,
+    apiURL: (process.env.NODE_ENV === 'production') ? 'https://sbtp.xyz' : 'http://localhost:1337'
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -19,7 +20,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: `http://localhost:1337`,
+        apiURL: (process.env.NODE_ENV === 'production') ? 'https://sbtp.xyz' : 'http://localhost:1337',
         queryLimit: 1000, // Default to 100
         contentTypes: [`product`, `user`],
         //If using single types place them in this array.
@@ -41,6 +42,11 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    
+    {
+       resolve: `gatsby-plugin-create-client-paths`,
+       options: { prefixes: [`/user/*`, `/connect/*`] },
+     },
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
