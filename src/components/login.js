@@ -1,14 +1,13 @@
 import React, { useState } from "react"
 import { Heading, Form, FormField, TextInput, Button, Box, Grid } from 'grommet'
 import { FormLock, View } from "grommet-icons";
-import { handleLogin } from "../services/auth"
 import ThirdPartyLogins from './ThirdPartyLogins'
 
 const Login = ({data}) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [reveal, setReveal] = useState(false);
-  
+
   return (
     <Box>
     <Heading level="2">Login</Heading>
@@ -35,7 +34,7 @@ const Login = ({data}) => {
             </Box>
           </FormField>
           <Box direction="row" gap="medium">
-            <Button type="submit" primary label="Submit" onClick={handleLogin}/>
+            <Button type="submit" primary label="Submit"/>
           </Box>
         </Form>
       </Box>

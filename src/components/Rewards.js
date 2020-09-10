@@ -1,9 +1,6 @@
 import React from "react"
 import { Heading, } from 'grommet'
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-
 const Rewards = ({ data }) => (
   <>
     <Heading level="2">Rewards</Heading>

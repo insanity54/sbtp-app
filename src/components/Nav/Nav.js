@@ -13,13 +13,13 @@ const Nav = () => {
       location.pathname === '/login'
     ) ? true : false;
   }
-  
+
   return (
     <>
       {(!isLoginPage() && !isLoggedIn()) && <LoginButton />}
       {isLoggedIn() && <LogoutButton />}
       {isLoggedIn() && <UserWidget/>}
-    </>  
+    </>
   )
 }
 

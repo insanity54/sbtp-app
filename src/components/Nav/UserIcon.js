@@ -13,17 +13,3 @@ const UserIcon = ({ data }) => (
 )
 
 export default UserIcon
-
-// export const query =  graphql`  
-//   query UserQuery {
-//     StrapiUser(id: $id) {
-//       image
-//         localFile {
-//           childImageSharp {
-//             fixed(width: 50, height: 50) {
-//               ...GatsbyImageSharpFixed
-//             }
-//           }
-//         }
-//       }
-//   }`

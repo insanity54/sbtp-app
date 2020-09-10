@@ -2,6 +2,7 @@ import React from "react"
 import Img from 'gatsby-image'
 import { Heading, Paragraph } from "grommet"
 import Link from '../components/Link'
+import { graphql } from 'gatsby'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
