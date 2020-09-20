@@ -23,17 +23,6 @@ module.exports = {
     },
     // I'm using @denisgoryaynov's fork in plugins/gatsby-source-strap because it supports contentTypes with multiple images.
     // once https://github.com/strapi/gatsby-source-strapi/pull/118/ is merged, I can switch back to official gatsby-source-strapi
-    {
-      resolve: `gatsby-source-strapi`,
-      options: {
-        apiURL: (process.env.NODE_ENV === 'production') ? 'https://sbtp.xyz' : 'http://localhost:1337',
-        queryLimit: 1000, // Default to 100
-        contentTypes: [`product`, `user`],
-        //If using single types place them in this array.
-        singleTypes: [`prize-pool`],
-        // Possibility to login with a strapi user, when content types are not publically available (optional).
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {

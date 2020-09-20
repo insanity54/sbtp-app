@@ -27,26 +27,26 @@ const PrizePage = ({ data }) => (
 )
 
 
-export const prizeQuery = graphql`  
-  query PrizeQuery {
-    allStrapiProduct {
-      edges {
-        node {
-          id
-          title
-          description
-          media {
-            localFile {
-              childImageSharp {
-                fixed(width: 125, height: 200) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }`
+// export const prizeQuery = graphql`  
+//   query PrizeQuery {
+//     allStrapiProduct {
+//       edges {
+//         node {
+//           id
+//           title
+//           description
+//           media {
+//             localFile {
+//               childImageSharp {
+//                 fixed(width: 125, height: 200) {
+//                   ...GatsbyImageSharpFixed
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }`
 
 export default PrizePage

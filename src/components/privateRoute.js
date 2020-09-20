@@ -7,6 +7,10 @@ const PrivateRoute = ({ component: Component, location, ...rest }) => {
     navigate("/user/login")
     return null
   }
-  return <Component {...rest} />
+  return (
+    <div>
+      <Component {...rest} />
+    </div>
+  )
 }
 export default PrivateRoute

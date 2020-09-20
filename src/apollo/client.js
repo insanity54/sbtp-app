@@ -1,10 +1,9 @@
 
 import fetch from 'cross-fetch';
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ApolloClient, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import typePolicies from './state'
+import { cache } from './cache'
 
-console.log(typePolicies)
 
 const client = (data) => {
   const httpLink = createHttpLink({
@@ -24,7 +23,7 @@ const client = (data) => {
 
   return new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache({typePolicies})
+    cache: cache
   })
 }
 
