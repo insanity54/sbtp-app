@@ -30,7 +30,7 @@ const GET_SITE_METADATA = graphql`
 
 const Layout = ({ children }) => {
 
-  const { loading, error, data: userData } = useQuery(GET_THEME, { variables: { id: getUser().id }});
+  const { loading, error, data: userData } = { user: { darkTheme: false }}//useQuery(GET_THEME, { variables: { id: getUser().id }});
   const staticData = useStaticQuery(GET_SITE_METADATA);
 
 
@@ -45,9 +45,6 @@ const Layout = ({ children }) => {
       }}
     >
       <Header siteBranding={staticData.site.siteMetadata.branding} />
-        {(loading) && 'Loading...'}
-        {(error) && `Error! ${error.message}`}
-
       <Box as="main" pad="medium" flex overflow="auto" background="background-back">
         {children}
       </Box>
