@@ -15202,6 +15202,11 @@ shelljs@^0.8.3:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
+shippo@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/shippo/-/shippo-1.5.0.tgz#6bdd160a526430c7abfb0f48e492a3fdd8c406d9"
+  integrity sha512-ngJQ7XQlViZQenkQdcAQuqZTmxYIfxWiggAhGUYo+ubJTg6RyPgHOuPLT6UBvy9WNsVlbsQNEV176uhqNfnOFw==
+
 side-channel@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/side-channel/-/side-channel-1.0.3.tgz#cdc46b057550bbab63706210838df5d4c19519c3"

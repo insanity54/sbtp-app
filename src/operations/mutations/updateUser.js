@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
 mutation UpdateUser(
   $id: ID!,
-  $mailingName: String,
+  $name: String,
   $mailingAddress1: String,
   $mailingAddress2: String,
   $mailingCity: String,
@@ -19,7 +19,7 @@ mutation UpdateUser(
           id: $id
         }
         data: {
-          mailingName: $mailingName,
+          name: $name,
           mailingAddress1: $mailingAddress1,
           mailingAddress2: $mailingAddress2,
           mailingCity: $mailingCity,

@@ -14,7 +14,7 @@ import {
   TextInput,
 } from 'grommet'
 import { getUser } from "../services/auth"
-import { mailingNameVar } from '../apollo/cache'
+import { nameVar } from '../apollo/cache'
 import { string } from 'yup'
 
 
@@ -37,16 +37,6 @@ const Profile = () => {
       >
         <Heading level="2">Profile</Heading>
         <Box pad="medium">
-            <Box pad="medium" border={{ color: 'brand', size: 'large' }}>
-              {(loading) && 'loading...'}
-              <h3>Apollo State</h3>
-              <pre>
-                {
-                  JSON.stringify(client.cache.extract(), null, 4)
-                }
-              </pre>
-            </Box>
-
 
           <Card
             height="medium"
@@ -84,7 +74,7 @@ const Profile = () => {
                   />
 
                 </FormField>
-                <p>{data?.user.mailingName}</p>
+                <p>{data?.user.name}</p>
                 <p>{name}</p>
               </Box>
             </CardBody>
@@ -94,7 +84,7 @@ const Profile = () => {
 
         <Box direction="row" pad="medium">
           <Button type="submit" primary icon={<Save/>} label="Save" onClick={() => {
-            updateName({ variables: { id: getUser().id, mailingName: name }})
+            updateName({ variables: { id: getUser().id, name: name }})
           }}/>
         </Box>
         <Box pad={{vertical: "xlarge"}}>

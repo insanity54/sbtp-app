@@ -1,5 +1,5 @@
 import React from "react"
-import { Schedules, CircleInformation } from 'grommet-icons'
+import { Schedules } from 'grommet-icons'
 import {
   Heading,
   Box,
@@ -8,7 +8,6 @@ import {
   CardBody,
   CardFooter,
   FormField,
-  Paragraph,
   TextInput,
   DateInput,
 } from 'grommet'
