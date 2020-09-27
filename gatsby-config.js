@@ -21,8 +21,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    // I'm using @denisgoryaynov's fork in plugins/gatsby-source-strap because it supports contentTypes with multiple images.
-    // once https://github.com/strapi/gatsby-source-strapi/pull/118/ is merged, I can switch back to official gatsby-source-strapi
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
