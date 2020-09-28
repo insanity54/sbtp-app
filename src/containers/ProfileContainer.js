@@ -6,8 +6,7 @@ import {
 import { useQuery } from '@apollo/client'
 import { getUser } from '../services/auth' // @TODO can a gql query replace this?
 import GET_USER from '../operations/queries/getUser'
-import ProfileEditMailingAddress from '../components/ProfileEditMailingAddress'
-import ProfileAddressValidationChooser from '../components/ProfileAddressValidationChooser'
+import AddressWrapper from '../components/AddressWrapper'
 import ProfileOverview from '../components/ProfileOverview'
 import { Router } from "@reach/router";
 
@@ -16,7 +15,7 @@ import { Router } from "@reach/router";
  * handles the query for the user profile data
  */
 const ProfileContainer = () => {
-  const { loading, data, client } = useQuery(GET_USER, { variables: { id: getUser().id }});
+  const { loading, data } = useQuery(GET_USER, { variables: { id: getUser().id }});
 
   if (loading) return <Box>Loading...</Box>
 
@@ -27,8 +26,7 @@ const ProfileContainer = () => {
 
       <Router>
         <ProfileOverview path="/" user={data?.user} />
-        <ProfileEditMailingAddress path="shipping" user={data?.user} />
-        <ProfileAddressValidationChooser path="shipping/validator" user={data?.user} />
+        <AddressWrapper path="shipping" user={data?.user} />
       </Router>
     </div>
   )

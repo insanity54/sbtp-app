@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import qs from 'qs'
+import PropTypes from 'prop-types'
 
 const useShippoValidator = ({ name, street1, street2, city, state, postalCode, country }) => {
   const [validName, setValidName] = useState(name);
@@ -17,24 +18,30 @@ const useShippoValidator = ({ name, street1, street2, city, state, postalCode, c
 
     const validateAddressViaShippo = (params) => {
       setLoading(true)
+      console.log(params)
       return fetch(`/.netlify/functions/address-validator?${params}`)
         .then((res) => {
+          console.log(res)
           return res.json()
         })
-        .then((address) => {
+        .then((body) => {
           setLoading(false)
-          let { street1, street2, city, state, zip } = address;
-          setValidName(name.toUpperCase()) // shippo discards the name so we're just reusing the prop
-          setValidStreet1(street1.toUpperCase())
-          setValidStreet2(street2.toUpperCase())
-          setValidCity(city.toUpperCase())
-          setValidState(state.toUpperCase())
-          setValidPostalCode(zip.toUpperCase())
-          setValidCountry(country.toUpperCase())
-          console.log(address)
-        })
-        .catch((e) => {
-          setError(e);
+          console.log('hello body')
+          console.log(body)
+          if (body.statusCode !== 200) {
+            setError(body?.message)
+          } else {
+            let { street1, street2, city, state, zip } = body;
+            console.log('here be the validated addr')
+            console.log(body)
+            setValidName(name.toUpperCase()) // shippo discards the name so we're just reusing the prop
+            setValidStreet1(street1.toUpperCase())
+            setValidStreet2(street2.toUpperCase())
+            setValidCity(city.toUpperCase())
+            setValidState(state.toUpperCase())
+            setValidPostalCode(zip.toUpperCase())
+            setValidCountry(country.toUpperCase())
+          }
         })
     }
 
@@ -75,6 +82,16 @@ const useShippoValidator = ({ name, street1, street2, city, state, postalCode, c
       country: validCountry,
     }
   }
+}
+
+useShippoValidator.propTypes = {
+  name: PropTypes.string.isRequired,
+  street1: PropTypes.string.isRequired,
+  street2: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  state: PropTypes.string.isRequired,
+  postalCode: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired
 }
 
 export default useShippoValidator

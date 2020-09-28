@@ -10,58 +10,18 @@ import {
   TextInput,
   Button
 } from 'grommet'
-import {
-  nameVar,
-  street1Var,
-  street2Var,
-  cityVar,
-  stateVar,
-  postalCodeVar,
-  countryVar
-} from '../apollo/cache'
-import { useMutation } from '@apollo/client'
-import { navigate } from 'gatsby'
-// import { string } from 'yup'
+
 import { Formik } from 'formik'
 import PropTypes from 'prop-types'
-import UPDATE_ADDRESS from '../operations/mutations/updateAddress'
+import { useUpdateAddress } from '../operations/mutations/updateAddress'
 import { getUser } from '../services/auth'
-import ProfileAddressValidationContainer from '../containers/ProfileAddressValidationContainer'
+import AddressContainer from '../containers/AddressContainer'
 
-const ProfileEditMailingAddress = ({ user }) => {
+const AddressEditor = ({ user, onCancel, onSaved }) => {
 
-  const [isAddressSaved, setAddressSaved] = useState(false);
-  const [updateAddress, { loading, error }] = useMutation(UPDATE_ADDRESS, {
-    update(cache, { data: { updateAddress } }) {
-      cache.modify({
-        fields: {
-          name(name = 'default name') {
-            return name
-          },
-          street1(street1 = 'default street1') {
-            return street1
-          },
-          street2(street2 = 'default street2') {
-            return street2
-          },
-          city(city = 'default city') {
-            return city
-          },
-          state(state = 'default state') {
-            return state
-          },
-          postalCode(postalCode = 'default postalCode') {
-            return postalCode
-          },
-          country(country = 'default country') {
-            return country
-          },
-        }
-      })
-    }
-  })
+  const [isAddressSaved] = useState(false);
+  const { mutate: updateAddress, loading, error } = useUpdateAddress();
 
-  // const nameSchema = string()
 
   const validator = (values) => {
     const errors = {};
@@ -92,14 +52,13 @@ const ProfileEditMailingAddress = ({ user }) => {
     if (error) {
       setErrors({ name: 'uh oh '}) // @TODO is there an overall Formik error thingy???
     } else {
-
-      // navigate('/user/profile/shipping/validator')
+      onSaved();
     }
   }
 
   return (
     <Box pad="medium">
-      {isAddressSaved && <ProfileAddressValidationContainer user={user}/>}
+      {isAddressSaved && <AddressContainer user={user}/>}
       <Card width="large" background="background-front">
         <CardHeader pad="medium">
           <Heading level="3">Edit Shipping Address</Heading>
@@ -188,7 +147,7 @@ const ProfileEditMailingAddress = ({ user }) => {
                   </FormField>
                 </Box>
                 <Box margin={{ top: "medium" }} direction="row" justify="end">
-                  <Button label="Cancel" margin={{ right: 'small' }} onClick={() => { navigate('/user/profile') }}></Button>
+                  <Button label="Cancel" margin={{ right: 'small' }} onClick={onCancel}></Button>
                   <Button primary label={loading ? 'Saving...' : 'Save'} type="submit"></Button>
                 </Box>
               </form>
@@ -200,8 +159,10 @@ const ProfileEditMailingAddress = ({ user }) => {
   )
 }
 
-ProfileEditMailingAddress.propTypes = {
-  user: PropTypes.object
+AddressEditor.propTypes = {
+  user: PropTypes.object,
+  onCancel: PropTypes.func, // @todo make required
+  onSaved: PropTypes.func, // @todo make required
 }
 
-export default ProfileEditMailingAddress
+export default AddressEditor

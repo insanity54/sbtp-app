@@ -15,9 +15,11 @@ exports.handler = async function (evt) {
     'validate': true
   })
   .catch((err) => {
+    console.log('error caught')
+    console.log(err)
     return {
-      statusCode: 500,
-      body: JSON.stringify(err)
+      statusCode: err.statusCode || 500,
+      body: JSON.stringify({ error: err.detail })
     }
   })
   .then((addr) => {

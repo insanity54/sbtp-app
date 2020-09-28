@@ -10,10 +10,9 @@ import {
   Paragraph,
   Button,
 } from 'grommet'
-import { navigate } from 'gatsby'
 import PropTypes from 'prop-types'
 
-const ProfileMailingAddress = ({ user }) => {
+const Address = ({ user, onEdit }) => {
 
   return (
     <Box pad="medium">
@@ -53,7 +52,7 @@ const ProfileMailingAddress = ({ user }) => {
               <Paragraph>{user?.country}</Paragraph>
             </Box>
           </Box>
-          <Button default alignSelf="end" icon={<Edit/>} label="Edit" onClick={() => navigate('/user/profile/shipping')}></Button>
+          <Button default alignSelf="end" icon={<Edit/>} label="Edit" onClick={onEdit}></Button>
 
         </CardBody>
         <CardFooter pad="medium">
@@ -66,8 +65,9 @@ const ProfileMailingAddress = ({ user }) => {
 
 
 
-ProfileMailingAddress.propTypes = {
-  user: PropTypes.object
+Address.propTypes = {
+  user: PropTypes.object.isRequired,
+  onEdit: PropTypes.func.isRequired
 }
 
-export default ProfileMailingAddress
+export default Address
