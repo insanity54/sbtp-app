@@ -1,64 +1,25 @@
-import React, { useState } from 'react'
-import AddressChooser from './AddressChooser'
-import AddressValidator from './AddressValidator'
+import React from 'react'
 import AddressEditor from './AddressEditor'
+import AddressChooser from './AddressChooser'
 import Address from './Address'
-// import { Trigger as Spinner } from 'grommet-icons'
-
-
+import { addressMode, isAddressValid, addressError, enteredAddress, suggestedAddress } from '../apollo/cache'
 
 const AddressWrapper = ({ user }) => {
-  const [ isEditMode, setEditMode ] = useState(false)
-  const [ isChoiceNeeded, setChoiceNeeded ] = useState(false)
-  const [ isValidationMode, setValidationMode ] = useState(false)
-  const [ validatedAddress, setValidatedAddress ] = useState({})
-  const [ error, setError ] = useState('')
-
-  const toggleEditMode = () => {
-    setEditMode(!isEditMode)
-  }
-
-  const onSaved = () => {
-    setEditMode(false)
-    setValidationMode(true)
-  }
-
-  const onChoice = () => {
-    setChoiceNeeded(false)
-  }
-
-  const onValid = (validatedAddress) => {
-    setValidationMode(false)
-    setChoiceNeeded(true)
-    setValidatedAddress(validatedAddress)
-  }
-
-  const onInvalid = (error) => {
-    setValidationMode(false)
-    setError(error)
-    setChoiceNeeded(false)
-    setEditMode(true)
-  }
 
 
 
-  // what we need
-  //   * valid address
-
-  // get unvalidated address
-  // validate the address
 
 
 
-  // display -> edit -> save -> choose -> save -> display
-  // 0          1               2                 0
 
-  if (isChoiceNeeded) return <AddressChooser entered={user} suggested={validatedAddress} user={user} onChoice={onChoice} />
-  if (isEditMode) return <AddressEditor user={user} onCancel={toggleEditMode} onSaved={onSaved} error={error} />
-  if (isValidationMode) return <AddressValidator user={user} onValid={onValid} onInvalid={onInvalid} />
+
+
+
   return (
     <div>
-      <Address user={user} onEdit={toggleEditMode} />
+      {addressMode() === 'display' && <Address user={user} onEdit={() => { addressMode('edit') }} />}
+      {addressMode() === 'edit' && <AddressEditor user={user} />}
+      {addressMode() === 'choose' && <AddressChooser entered={enteredAddress()} suggested={suggestedAddress()} user={user} />}
     </div>
   )
 }

@@ -44,9 +44,11 @@ const Address = ({ user, onEdit }) => {
               <Paragraph>{user?.state}</Paragraph>
             </Box>
             <Box style={{ width: '30%' }}>
-              <Heading margin="none" pad="none" level="4">ZIP</Heading>
+              <Heading margin="none" pad="none" level="4">ZIP/Postal Code</Heading>
               <Paragraph>{user?.postalCode}</Paragraph>
             </Box>
+          </Box>
+          <Box>
             <Box>
               <Heading margin="none" pad="none" level="4">Country</Heading>
               <Paragraph>{user?.country}</Paragraph>

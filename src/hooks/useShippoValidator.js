@@ -18,7 +18,6 @@ const useShippoValidator = ({ name, street1, street2, city, state, postalCode, c
 
     const validateAddressViaShippo = (params) => {
       setLoading(true)
-      console.log(params)
       return fetch(`/.netlify/functions/address-validator?${params}`)
         .then((res) => {
           console.log(res)
@@ -29,8 +28,12 @@ const useShippoValidator = ({ name, street1, street2, city, state, postalCode, c
           console.log('hello body')
           console.log(body)
           if (body.statusCode !== 200) {
-            setError(body?.message)
+            const b = JSON.parse(body.body)
+            console.log('status code was NOT 200')
+            console.log(b)
+            setError(b.error)
           } else {
+            console.log('status code was 200')
             let { street1, street2, city, state, zip } = body;
             console.log('here be the validated addr')
             console.log(body)

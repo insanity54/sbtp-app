@@ -5,4 +5,4 @@
  */
 
 
-export { wrapRootElement } from './src/apollo/wrapRootElement';
+export { wrapRootElement } from './src/apollo/wrapRootElement'

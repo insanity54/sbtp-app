@@ -13,8 +13,9 @@ import { FormLocation } from 'grommet-icons'
 import { navigate } from 'gatsby'
 import PropTypes from 'prop-types'
 import { useUpdateAddress } from '../operations/mutations/updateAddress'
+import { addressMode } from '../apollo/cache'
 
-const AddressChooser = ({ user, entered, suggested, onChoice }) => {
+const AddressChooser = ({ user, entered, suggested }) => {
 
   const { mutate: updateAddress, loading: mutationLoading, error: mutationError } = useUpdateAddress();
   const submitSuggestedAddress = async (validatedAddress) => {
@@ -30,14 +31,14 @@ const AddressChooser = ({ user, entered, suggested, onChoice }) => {
         country: validatedAddress.country
       }
     })
-    onChoice('suggested')
+    addressMode('display')
   }
 
 
   return (
     <Card margin="medium" pad="medium" width="large" background="background-front">
         <CardHeader>
-          <Heading level="3">Address Validation</Heading>
+          <Heading level="3">Address Suggestion</Heading>
           <FormLocation size="large"/>
         </CardHeader>
         <CardBody>
@@ -51,7 +52,7 @@ const AddressChooser = ({ user, entered, suggested, onChoice }) => {
               {entered?.city} {entered?.state} {entered?.postalCode}<br/>
               {entered?.country}
             </Paragraph>
-            <Button secondary margin={{ right: "1em" }} label="Use Entered Address" onClick={() => navigate('/user/profile')}></Button>
+            <Button secondary margin={{ right: "1em" }} label="Use Entered Address" onClick={() => { addressMode('display') }}></Button>
 
           </Box>
 
@@ -81,7 +82,6 @@ AddressChooser.propTypes = {
   user: PropTypes.object.isRequired,
   entered: PropTypes.object.isRequired,
   suggested: PropTypes.object.isRequired,
-  onChoice: PropTypes.func.isRequired,
 }
 
 export default AddressChooser

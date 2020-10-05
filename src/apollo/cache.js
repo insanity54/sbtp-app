@@ -5,6 +5,11 @@ export const cache = new InMemoryCache({
   typePolicies: {
     UsersPermissionsUser: {
       fields: {
+        addressMode: {
+          read () {
+            return addressMode();
+          }
+        },
         name: {
           read () {
             return nameVar();
@@ -76,3 +81,6 @@ export const stateVar = makeVar('69')
 export const cityVar = makeVar('Default City')
 export const postalCodeVar = makeVar(4206969)
 export const countryVar = makeVar('Default Country')
+export const addressMode = makeVar('display')
+export const enteredAddress = makeVar({})
+export const suggestedAddress = makeVar({})

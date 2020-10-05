@@ -27,14 +27,16 @@ const ProfileSpecialDates = ({ user }) => {
           <Schedules size="large"/>
         </CardHeader>
         <CardBody pad={{horizontal: "medium"}}>
-          <FormField label="Birthday">
+          <FormField label="Birthday" width="20em">
             <DateInput
-              format="mm/dd/yyy"
+              calendarProps={{size: "medium"}}
+              format="mm/dd/yyyy"
             ></DateInput>
           </FormField>
-          <FormField label="Special Day">
+          <FormField label="Special Day" width="20em">
             <DateInput
-              format="mm/dd/yyy"
+              calendarProps={{size: "medium"}}
+              format="mm/dd/yyyy"
             ></DateInput>
           </FormField>
           <FormField

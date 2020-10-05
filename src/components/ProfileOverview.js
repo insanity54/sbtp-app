@@ -1,14 +1,14 @@
 import React from "react"
-import ProfileIdentity from './ProfileIdentity'
+import Identity from './Identity'
 import AddressWrapper from './AddressWrapper'
 import ProfileSpecialDates from './ProfileSpecialDates'
 
 const ProfileOverview = ({ user }) => {
   return (
     <div>
-      <ProfileIdentity user={user}></ProfileIdentity>
-      <AddressWrapper user={user}></AddressWrapper>
+      <Identity user={user}></Identity>
       <ProfileSpecialDates user={user}></ProfileSpecialDates>
+      <AddressWrapper user={user}></AddressWrapper>
     </div>
   )
 }

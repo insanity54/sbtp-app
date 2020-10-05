@@ -1,5 +1,8 @@
-import React from 'react';
-import { ApolloProvider } from '@apollo/client';
+import React, { createContext } from 'react';
+
+export const themeContext = createContext('dark');
+
+
 import { StaticQuery, graphql } from "gatsby"
 import client from './client'
 

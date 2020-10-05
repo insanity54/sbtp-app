@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Deliver } from 'grommet-icons'
 import {
   Heading,
@@ -8,38 +8,53 @@ import {
   CardBody,
   FormField,
   TextInput,
-  Button
+  Button,
+  Paragraph
 } from 'grommet'
 
+// import AddressChooser from './AddressChooser'
+// import AddressValidator from './AddressValidator'
 import { Formik } from 'formik'
 import PropTypes from 'prop-types'
 import { useUpdateAddress } from '../operations/mutations/updateAddress'
 import { getUser } from '../services/auth'
-import AddressContainer from '../containers/AddressContainer'
-
-const AddressEditor = ({ user, onCancel, onSaved }) => {
-
-  const [isAddressSaved] = useState(false);
-  const { mutate: updateAddress, loading, error } = useUpdateAddress();
+import shippoValidator from '../services/shippoValidator'
+import * as Yup from 'yup'
+import { addressMode, suggestedAddress, enteredAddress } from '../apollo/cache'
 
 
-  const validator = (values) => {
-    const errors = {};
-    if (!values.name) {
-      errors.name = "name is required"
-    }
-    if (!values.street1) {
-      errors.street1 = "street1 is required"
-    }
-    return errors;
-  }
+const AddressSchema = Yup.object().shape({
+  name: Yup.string()
+    .max(128, 'Too long!')
+    .required('Required'),
+  street1: Yup.string()
+    .max(128, 'Too long!')
+    .required('Required'),
+  street2: Yup.string()
+    .max(128, 'Too long!'),
+  city: Yup.string()
+    .max(128, 'Too long!')
+    .required('Required'),
+  state: Yup.string()
+    .length(2)
+    .required('Required'),
+  postalCode: Yup.string()
+    .max(128, 'Too long!')
+    .required('Required'),
+  country: Yup.string()
+    .max(128, 'Too long!')
+    .required('Required')
+})
+
+
+const AddressEditor = ({ user }) => {
+  const { mutate: updateAddress, loading } = useUpdateAddress();
 
 
 
-
-  const onSubmit = async (values, { setSubmitting, setErrors }) => {
+  const onSubmit = async (values, { setSubmitting, setStatus }) => {
     console.log(`submitting ${JSON.stringify(values, null, 4)}`)
-    await updateAddress({ variables: {
+    const { error, data } = await updateAddress({ variables: {
       id: getUser().id,
       name: values.name,
       street1: values.street1,
@@ -49,16 +64,31 @@ const AddressEditor = ({ user, onCancel, onSaved }) => {
       postalCode: values.postalCode,
       country: values.country,
     }})
-    if (error) {
-      setErrors({ name: 'uh oh '}) // @TODO is there an overall Formik error thingy???
-    } else {
-      onSaved();
+
+    if (typeof error === 'undefined') {
+      let { error: addressErrors, validatedAddress } = await shippoValidator(values)
+      if (addressErrors) {
+        console.log(addressErrors)
+        setStatus({ errors: addressErrors })
+      } else {
+        console.log('shippo validation succeeded')
+        setSubmitting(false)
+        enteredAddress(values)
+        suggestedAddress(validatedAddress)
+        addressMode('choose')
+      }
     }
+
+    console.log(data);
+    console.log(error);
+
+    // if (!error) setSubmitting(false)
+    // else setStatus(JSON.stringify(error))
+
   }
 
   return (
     <Box pad="medium">
-      {isAddressSaved && <AddressContainer user={user}/>}
       <Card width="large" background="background-front">
         <CardHeader pad="medium">
           <Heading level="3">Edit Shipping Address</Heading>
@@ -75,15 +105,18 @@ const AddressEditor = ({ user, onCancel, onSaved }) => {
               postalCode: user.postalCode,
               country: user.country
             }}
-            validate={validator}
+            validationSchema={AddressSchema}
             onSubmit={onSubmit}
+            initialStatus={{ errors: null }}
           >
             {({
               values,
               errors,
+              status,
               handleChange,
               handleSubmit,
-              setFieldValue
+              setFieldValue,
+              isSubmitting
             }) => (
               <form
                 onSubmit={(evt) => {
@@ -130,7 +163,7 @@ const AddressEditor = ({ user, onCancel, onSaved }) => {
                         onChange={handleChange}
                       />
                     </FormField>
-                    <FormField name="postalCode" htmlfor="postalCode" label="ZIP/Postal Code" error={errors.postalCode}>
+                    <FormField name="postalCode" htmlfor="postalCode" label="ZIP/Postal Code" error={errors.postalCode} style={{ width: '30%'}}>
                       <TextInput
                         name="postalCode"
                         value={values?.postalCode}
@@ -146,9 +179,10 @@ const AddressEditor = ({ user, onCancel, onSaved }) => {
                     />
                   </FormField>
                 </Box>
+                {status?.errors && <AddressEditorErrors errors={status.errors} />}
                 <Box margin={{ top: "medium" }} direction="row" justify="end">
-                  <Button label="Cancel" margin={{ right: 'small' }} onClick={onCancel}></Button>
-                  <Button primary label={loading ? 'Saving...' : 'Save'} type="submit"></Button>
+                  <Button label="Cancel" onClick={() => { addressMode('display') }} margin={{ right: 'small' }} ></Button>
+                  <Button primary label={isSubmitting ? 'Saving...' : 'Save'} type="submit"></Button>
                 </Box>
               </form>
             )}
@@ -159,10 +193,26 @@ const AddressEditor = ({ user, onCancel, onSaved }) => {
   )
 }
 
+
+const AddressEditorErrors = ({ errors }) => {
+  return (
+    <div>
+      <Heading level="3" color="status-error">Error</Heading>
+      <ul>
+        {errors.map(e => (
+          <li><Paragraph color="status-error">{e.text}</Paragraph></li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 AddressEditor.propTypes = {
   user: PropTypes.object,
-  onCancel: PropTypes.func, // @todo make required
-  onSaved: PropTypes.func, // @todo make required
+}
+
+AddressEditorErrors.propTypes = {
+  errors: PropTypes.array
 }
 
 export default AddressEditor
