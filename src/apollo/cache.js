@@ -10,6 +10,11 @@ export const cache = new InMemoryCache({
             return addressMode();
           }
         },
+        specialDateEditMode: {
+          read () {
+            return specialDateEditMode();
+          }
+        },
         name: {
           read () {
             return nameVar();
@@ -82,5 +87,6 @@ export const cityVar = makeVar('Default City')
 export const postalCodeVar = makeVar(4206969)
 export const countryVar = makeVar('Default Country')
 export const addressMode = makeVar('display')
+export const specialDateEditMode = makeVar('display')
 export const enteredAddress = makeVar({})
 export const suggestedAddress = makeVar({})

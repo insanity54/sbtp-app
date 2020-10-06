@@ -14,6 +14,7 @@ export default gql`
       specialDate
       birthDate
       addressMode @client
+      specialDateEditMode @client
     }
   }
   `

@@ -15,11 +15,11 @@ import {
 // import AddressChooser from './AddressChooser'
 // import AddressValidator from './AddressValidator'
 import { Formik } from 'formik'
+import * as Yup from 'yup'
 import PropTypes from 'prop-types'
 import { useUpdateAddress } from '../operations/mutations/updateAddress'
 import { getUser } from '../services/auth'
 import shippoValidator from '../services/shippoValidator'
-import * as Yup from 'yup'
 import { addressMode, suggestedAddress, enteredAddress } from '../apollo/cache'
 
 
@@ -48,7 +48,7 @@ const AddressSchema = Yup.object().shape({
 
 
 const AddressEditor = ({ user }) => {
-  const { mutate: updateAddress, loading } = useUpdateAddress();
+  const { mutate: updateAddress } = useUpdateAddress();
 
 
 

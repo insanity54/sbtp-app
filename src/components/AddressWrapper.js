@@ -2,19 +2,9 @@ import React from 'react'
 import AddressEditor from './AddressEditor'
 import AddressChooser from './AddressChooser'
 import Address from './Address'
-import { addressMode, isAddressValid, addressError, enteredAddress, suggestedAddress } from '../apollo/cache'
+import { addressMode, enteredAddress, suggestedAddress } from '../apollo/cache'
 
 const AddressWrapper = ({ user }) => {
-
-
-
-
-
-
-
-
-
-
   return (
     <div>
       {addressMode() === 'display' && <Address user={user} onEdit={() => { addressMode('edit') }} />}

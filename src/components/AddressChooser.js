@@ -10,7 +10,6 @@ import {
   Paragraph
 } from 'grommet'
 import { FormLocation } from 'grommet-icons'
-import { navigate } from 'gatsby'
 import PropTypes from 'prop-types'
 import { useUpdateAddress } from '../operations/mutations/updateAddress'
 import { addressMode } from '../apollo/cache'
