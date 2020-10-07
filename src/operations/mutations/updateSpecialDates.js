@@ -1,15 +1,11 @@
 import { gql, useMutation as uM } from '@apollo/client' // 'use x as y' just to get around build errors which think I'm using a react hook outside a react component
 
 export const UPDATE_SPECIAL_DATES = gql`
-  mutation UpdateSpecialDates(
-    $id: ID!,
-    $name: String,
-    $street1: String,
-    $street2: String,
-    $city: String,
-    $state: String,
-    $postalCode: String,
-    $country: String
+  mutation UpdateSpecialDates (
+    $id: ID!
+    $specialDate: DateTime
+    $birthDate: DateTime
+    $specialDateDescription: String
   ) {
       updateUser(
         input: {
@@ -17,25 +13,17 @@ export const UPDATE_SPECIAL_DATES = gql`
             id: $id
           }
           data: {
-            name: $name,
-            street1: $street1,
-            street2: $street2,
-            city: $city,
-            state: $state,
-            postalCode: $postalCode,
-            country: $country
+            specialDate: $specialDate
+            birthDate: $birthDate
+            specialDateDescription: $specialDateDescription
           }
         },
       ) {
         user {
           id
-          name
-          street1
-          street2
-          city
-          state
-          postalCode
-          country
+          specialDate
+          birthDate
+          specialDateDescription
         }
       }
   }

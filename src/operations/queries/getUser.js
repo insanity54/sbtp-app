@@ -13,6 +13,7 @@ export default gql`
       country
       specialDate
       birthDate
+      specialDateDescription
       addressMode @client
       specialDateEditMode @client
     }

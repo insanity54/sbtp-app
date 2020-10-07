@@ -15,21 +15,21 @@ import * as Yup from 'yup'
 
 const SpecialDateSchema = Yup.object().shape({
   specialDate: Yup.date()
-    .required('Required'),
+    .required('A special day is required'),
   specialDateDescription: Yup.string()
     .max(128, 'Too long!')
-    .required('Required'),
+    .required('A description of your special day is required'),
   birthDate: Yup.date()
-    .required('Required!')
+    .required('Your birth day is required')
 })
 
 const SpecialDatesEditor = ({ user, onSave, onCancel }) => {
   const { mutate: updateSpecialDates, loading } = useUpdateSpecialDates();
   const doSubmit = async (values, { setSubmitting, setStatus }) => {
-    console.log('doSubmit')
     const { error } = await updateSpecialDates({
       variables: {
-        specialDate: values.specailDate,
+        id: user.id,
+        specialDate: values.specialDate,
         birthDate: values.birthDate,
         specialDateDescription: values.specialDateDescription
       }
@@ -70,12 +70,17 @@ const SpecialDatesEditor = ({ user, onSave, onCancel }) => {
           }}
         >
           <FormField label="Birthday" width="20em" error={errors.birthDate}>
+            <p>{JSON.stringify(values, 0, 4)}</p>
             <DateInput
               name="birthDate"
               calendarProps={{size: "medium"}}
               format="mm/dd/yyyy"
               value={values?.birthDate}
-              onChange={handleChange}
+              onChange={(evt) => {
+                if (evt?.value) {
+                  setFieldValue('birthDate', evt.value)
+                }}
+              }
             ></DateInput>
           </FormField>
           <FormField label="Special Day" width="20em" error={errors.specialDate}>
@@ -84,7 +89,7 @@ const SpecialDatesEditor = ({ user, onSave, onCancel }) => {
               calendarProps={{size: "medium"}}
               format="mm/dd/yyyy"
               value={values?.specialDate}
-              onChange={(evt) => {handleChange(evt.value)}}
+              onChange={(evt) => { if (evt?.value) setFieldValue('specialDate', evt.value) }}
             ></DateInput>
           </FormField>
           <FormField
@@ -98,7 +103,7 @@ const SpecialDatesEditor = ({ user, onSave, onCancel }) => {
               onChange={handleChange}
             ></TextInput>
           </FormField>
-          <Box margin={{ top: "medium" }} direction="row" justify="end">
+          <Box margin={{ top: "medium", bottom: "medium" }} direction="row" justify="end">
             <Button label="Cancel" onClick={onCancel} margin={{ right: 'small' }} ></Button>
             <Button primary label={loading ? 'Saving...' : 'Save'} type="submit"></Button>
           </Box>

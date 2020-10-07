@@ -9,6 +9,7 @@ import {
 } from 'grommet'
 import { Edit } from 'grommet-icons'
 import PropTypes from 'prop-types'
+import { DateTime } from 'luxon'
 
 const SpecialDatesDisplay = ({ user, onEdit }) => {
 
@@ -17,14 +18,14 @@ const SpecialDatesDisplay = ({ user, onEdit }) => {
     <div>
       <CardBody pad={{horizontal: "medium"}}>
         <Box>
-          <Heading level="4">Birthday</Heading>
+          <Heading pad="none" margin="none" level="4">Birthday</Heading>
           <Paragraph>
-            { user?.birthDate }
+            { DateTime.fromISO(user?.birthDate).toLocaleString() }
           </Paragraph>
         </Box>
         <Box>
-          <Heading level="4">{ user?.specialDateDescription ? user.specialDateDescription : 'Special Day'}</Heading>
-          <Paragraph>{ user?.specialDate }</Paragraph>
+          <Heading pad="none" margin="none" level="4">{ user?.specialDateDescription ? user.specialDateDescription : 'Special Day'}</Heading>
+          <Paragraph>{ DateTime.fromISO(user?.specialDate).toLocaleString() }</Paragraph>
         </Box>
         <Box margin={{bottom: "medium"}}>
           <Button default alignSelf="end" icon={<Edit/>} label="Edit" onClick={onEdit}></Button>
