@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useLazyQuery } from '@apollo/client'
 
 export const GET_PRODUCTS = gql`
   query GetProducts {
@@ -18,6 +18,11 @@ export const GET_PRODUCTS = gql`
 
 
 export function useGetProducts() {
-  const { data, loading, error } = useQuery(GET_PRODUCTS)
-  return { data, loading, error }
+  const { data, loading, error, refetch } = useQuery(GET_PRODUCTS)
+  return { data, loading, error, refetch }
+}
+
+export function useLazyGetProducts() {
+  const [ getProducts, { data, loading, error, refetch} ] = useLazyQuery(GET_PRODUCTS)
+  return [ getProducts, { data, loading, error, refetch} ]
 }
