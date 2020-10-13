@@ -18,7 +18,6 @@ const ProductsPage = () => {
   return (
     <Layout>
       <SEO title="Products" />
-      <Heading level="2">Products</Heading>
       <Box margin={{bottom: "medium"}}>
         <TextInput
           icon=<Search/>

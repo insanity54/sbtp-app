@@ -10,7 +10,6 @@ const MainMenu = () => (
     <MenuItem label="Rewards" to="/user/rewards" icon={<Achievement/>} />
     <MenuItem label="Profile" to="/user/profile" icon={<ContactInfo/>} />
     <MenuItem label="Settings" to="/user/settings" icon={<UserSettings/>} />
-
   </Grid>
 )
 

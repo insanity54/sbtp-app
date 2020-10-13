@@ -4,7 +4,7 @@ import { isLoggedIn } from "../services/auth"
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
   if (!isLoggedIn() && location.pathname !== `/user/login`) {
-    navigate("/user/login")
+    navigate("/user/login", {replace: true})
     return null
   }
   return (
