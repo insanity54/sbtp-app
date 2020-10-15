@@ -4,10 +4,11 @@ export const SEARCH_PRODUCTS = gql`
   query SearchProducts ($searchTerms: String) {
     products(
       where: {
-        title_contains: $searchTerms
+        identifier_contains: $searchTerms
       }
     ) {
       id
+      identifier
       title
       description
       media {
@@ -18,7 +19,6 @@ export const SEARCH_PRODUCTS = gql`
 `
 
 
-export function useSearchProducts() {
-  const { data, loading, error, refetch } = useQuery(SEARCH_PRODUCTS)
-  return { data, loading, error, refetch }
+export function useSearchProducts(opts) {
+  return useQuery(SEARCH_PRODUCTS, opts)
 }
